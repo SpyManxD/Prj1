@@ -1,0 +1,34 @@
+classDiagram
+    class TradingBot{
+        +execute_strategy(strategy: Strategy) -> None
+        +get_account_balance() -> float
+        +get_open_orders() -> List[Order]
+        +get_order_history() -> List[Order]
+        +get_market_data() -> pd.DataFrame
+        +get_trading_performance() -> pd.DataFrame
+    }
+    class Strategy{
+        +execute(market_data: pd.DataFrame) -> None
+    }
+    class Order{
+        -symbol: str
+        -order_type: str
+        -price: float
+        -quantity: float
+        -status: str
+        +get_symbol() -> str
+        +get_order_type() -> str
+        +get_price() -> float
+        +get_quantity() -> float
+        +get_status() -> str
+    }
+    TradingBot "1" -- "1" Strategy: uses
+    TradingBot "1" -- "1" BinanceAPI: uses
+    TradingBot "1" -- "1" DataAnalysis: uses
+    TradingBot "1" -- "1" WebInterface: uses
+    TradingBot "1" -- "1" Utils: uses
+    Strategy "1" -- "1" MarketData: uses
+    Strategy "1" -- "1" TradingSignals: uses
+    BinanceAPI "1" -- "1" CCXT: uses
+    DataAnalysis "1" -- "1" Pandas: uses
+    WebInterface "1" -- "1" Flask: uses

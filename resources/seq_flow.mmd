@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant User
+    participant TradingBot
+    participant Strategy
+    participant BinanceAPI
+    participant DataAnalysis
+    participant WebInterface
+    participant Utils
+    User->>WebInterface: Access web interface
+    WebInterface->>TradingBot: Get account balance
+    TradingBot->>BinanceAPI: Fetch account balance
+    BinanceAPI->>TradingBot: Return account balance
+    WebInterface->>TradingBot: Get open orders
+    TradingBot->>BinanceAPI: Fetch open orders
+    BinanceAPI->>TradingBot: Return open orders
+    WebInterface->>TradingBot: Get order history
+    TradingBot->>BinanceAPI: Fetch order history
+    BinanceAPI->>TradingBot: Return order history
+    WebInterface->>TradingBot: Get market data
+    TradingBot->>BinanceAPI: Fetch market data
+    BinanceAPI->>TradingBot: Return market data
+    WebInterface->>Strategy: Execute strategy
+    Strategy->>DataAnalysis: Analyze market data
+    DataAnalysis->>Strategy: Return trading signals
+    Strategy->>TradingBot: Execute strategy
+    TradingBot->>BinanceAPI: Execute trades
+    BinanceAPI->>TradingBot: Return trade execution status
+    TradingBot->>WebInterface: Return trading performance
+    WebInterface->>User: Display trading performance
